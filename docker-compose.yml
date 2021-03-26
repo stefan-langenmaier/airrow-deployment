@@ -1,0 +1,26 @@
+version: "3.2"
+services:
+  app:
+    image: slangenmaier/airrow:202103260933
+    volumes:
+      - appdata:/data
+    ports:
+      - "$UID:8080"
+    environment:
+      - SEARCH_WALK_DISTANCE=1500m
+      - SEARCH_SCALE=0.9
+      - SEARCH_MIN_ACCURACY=25
+      - STORAGE_DIRECTORY=/data/
+      - QUARKUS_ELASTICSEARCH_HOSTS=es:9200
+  es:
+    image: elasticsearch-oss:6.8.15
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+volumes:
+  esdata:
+  appdata:
