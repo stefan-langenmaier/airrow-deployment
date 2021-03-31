@@ -1,0 +1,11 @@
+version: "3.2"
+services:
+  dump:
+    build:
+      context: ./dump-tool
+    image: dump-tool:latest
+    environment:
+      - SHARE_KEY=${SHARE_KEY}
+    volumes:
+      - appdata:/data
+    command: bash /scripts/dump.sh
