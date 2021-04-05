@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   app:
-    image: slangenmaier/airrow:202103260933
+    image: slangenmaier/airrow:20210405
     volumes:
       - appdata:/data
     ports:
