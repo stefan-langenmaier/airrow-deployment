@@ -5,7 +5,7 @@ DATE=$(date +%Y%m%d)
 rm /transfer -rf || /bin/true
 mkdir /transfer
 
-for index in airrow airrow-trajectories airrow-points airrow-ratings
+for index in airrow airrow-trajectories airrow-points airrow-ratings airrow-capabilities
 do
 elasticdump \
   --input=http://es:9200/$index \
@@ -16,7 +16,7 @@ elasticdump \
   --output=/transfer/$index.mapping.json \
   --type=mapping
 elasticdump \
-  --input=http://es:9200/airrow \
+  --input=http://es:9200/$index \
   --output=/transfer/$index.data.json \
   --type=data
 done
