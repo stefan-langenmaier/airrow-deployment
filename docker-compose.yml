@@ -1,11 +1,15 @@
 version: "3.2"
 services:
-  app:
-    image: slangenmaier/airrow:20210418
+  ui:
+    image: slangenmaier/airrow-ui:latest
+    ports:
+      - "21022:80"
+  api:
+    image: slangenmaier/airrow:latest
     volumes:
       - appdata:/data
     ports:
-      - "21003:8080"
+      - "21023:8080"
     environment:
       - SEARCH_WALK_DISTANCE=1500m
       - SEARCH_SCALE=0.9
@@ -13,9 +17,9 @@ services:
       - STORAGE_DIRECTORY=/data/
       - QUARKUS_ELASTICSEARCH_HOSTS=es:9200
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.15
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.16
     ports:
-      - "9200:9200"
+      - "9201:9200"
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
