@@ -1,11 +1,11 @@
 version: "3.2"
 services:
   ui:
-    image: slangenmaier/airrow-ui:latest
+    image: slangenmaier/airrow-ui:donumenta-latest
     ports:
       - "${UI_PORT}:80"
   api:
-    image: slangenmaier/airrow:latest
+    image: slangenmaier/airrow:donumenta-latest
     volumes:
       - appdata:/data
     ports:
@@ -17,7 +17,7 @@ services:
       - STORAGE_DIRECTORY=/data/
       - QUARKUS_ELASTICSEARCH_HOSTS=es:9200
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.16
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
     ports:
       - "${ES_PORT}:9200"
     environment:
