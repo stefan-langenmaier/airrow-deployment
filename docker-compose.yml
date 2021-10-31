@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.7"
 services:
   ui:
     image: slangenmaier/airrow-ui:donumenta-latest
@@ -15,15 +15,17 @@ services:
       - SEARCH_SCALE=0.9
       - SEARCH_MIN_ACCURACY=25
       - STORAGE_DIRECTORY=/data/
+      - ADMIN_CREATOR=""
       - QUARKUS_ELASTICSEARCH_HOSTS=es:9200
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
     ports:
       - "${ES_PORT}:9200"
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms196m -Xmx196m"
     volumes:
       - esdata:/usr/share/elasticsearch/data
 volumes:
