@@ -4,12 +4,19 @@ services:
     image: slangenmaier/airrow-ui:donumenta-latest
     ports:
       - "${UI_PORT}:80"
+  proxy:
+    image: nginx:latest
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - appdata:/data
+    ports:
+      - "${API_PORT}:80"
   api:
     image: slangenmaier/airrow:donumenta-latest
     volumes:
       - appdata:/data
-    ports:
-      - "${API_PORT}:8080"
+#    ports:
+#      - "${API_PORT}:8080"
     environment:
       - SEARCH_WALK_DISTANCE=1500m
       - SEARCH_SCALE=0.9
@@ -18,7 +25,7 @@ services:
       - ADMIN_CREATOR=""
       - QUARKUS_ELASTICSEARCH_HOSTS=es:9200
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
     ports:
       - "${ES_PORT}:9200"
     environment:
